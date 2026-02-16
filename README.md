@@ -55,7 +55,7 @@ npm install
 
 npx vsce package
 
-antigravity --install-extension  Open-Skills-Manager-0.6.0.vsix
+antigravity --install-extension  Open-Skills-Manager-0.1.0.vsix
 
 ## License
 
