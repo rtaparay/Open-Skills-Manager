@@ -14,7 +14,7 @@ AgentSkills multi-IDE management extension: browse and install skill repositorie
 
 ## Usage
 
-1. Open the **Agent Skills** panel in the Activity Bar ![icon](https://raw.githubusercontent.com/lasoons/AgentSkillsManager/refs/heads/main/resources/skills-icon.png)
+1. Open the **Agent Skills** panel in the Activity Bar ![icon](https://raw.githubusercontent.com/rtaparay/AgentSkillsManager/refs/heads/main/resources/skills-icon.png)
 2. Click **+** to add a skill repository (e.g., `https://github.com/anthropics/skills`)
 3. Expand the repository to browse available skills
 4. Check the skills you want, then click **Install**

@@ -23,6 +23,7 @@ interface RemoteSkill {
     author: string;
     installs: number;
     stars: number;
+    marketplace: 'claude-plugins' | 'github';
 }
 
 interface RemoteSkillsResponse {
@@ -30,6 +31,22 @@ interface RemoteSkillsResponse {
     total: number;
     limit: number;
     offset: number;
+}
+
+interface GitHubSearchItem {
+    full_name: string;
+    description: string | null;
+    stargazers_count: number;
+    html_url: string;
+    owner: {
+        login: string;
+    };
+}
+
+interface GitHubSearchResponse {
+    total_count: number;
+    incomplete_results: boolean;
+    items: GitHubSearchItem[];
 }
 
 type RemoteSkillPickItem = vscode.QuickPickItem & { itemType: 'remoteSkill'; skill: RemoteSkill; installed: boolean };
@@ -177,11 +194,11 @@ export function activate(context: vscode.ExtensionContext) {
             };
             const openSiteButton: vscode.QuickInputButton = {
                 iconPath: new vscode.ThemeIcon('link-external'),
-                tooltip: 'Open https://claude-plugins.dev/'
+                tooltip: 'Open https://skills.sh/'
             };
 
             const quickPick = vscode.window.createQuickPick<RemoteSkillPickItem>();
-            quickPick.title = 'Search Skills';
+            quickPick.title = 'Search Skills (Claude Plugins + GitHub)';
             quickPick.placeholder = 'Search skills by name or description';
             quickPick.matchOnDescription = true;
             quickPick.matchOnDetail = true;
@@ -220,6 +237,8 @@ export function activate(context: vscode.ExtensionContext) {
                 const installed = Boolean(targetBase && fs.existsSync(path.join(targetBase, safeName)));
                 const installsText = formatCompactNumber(skill.installs);
                 const starsText = formatCompactNumber(skill.stars);
+                const marketplaceIcon = skill.marketplace === 'github' ? '$(github)' : '$(cloud)';
+                const marketplaceLabel = skill.marketplace === 'github' ? 'GitHub' : 'Claude Plugins';
 
                 return {
                     itemType: 'remoteSkill',
@@ -227,7 +246,7 @@ export function activate(context: vscode.ExtensionContext) {
                     installed,
                     label: skill.name,
                     description: `${starsText} ★  ${installsText} ⬇`,
-                    detail: [skill.namespace, skill.author ? `by ${skill.author}` : '', skill.description].filter(Boolean).join(' — '),
+                    detail: [skill.namespace, skill.author ? `by ${skill.author}` : '', skill.description].filter(Boolean).join(' — ') + ` ${marketplaceIcon} ${marketplaceLabel}`,
                     buttons: installed ? [] : [installButton]
                 };
             };
@@ -283,7 +302,7 @@ export function activate(context: vscode.ExtensionContext) {
 
             quickPick.onDidTriggerButton(button => {
                 if (button === openSiteButton) {
-                    void vscode.env.openExternal(vscode.Uri.parse('https://claude-plugins.dev/'));
+                    void vscode.env.openExternal(vscode.Uri.parse('https://skills.sh/'));
                     return;
                 }
                 if (button === prevPageButton) {
@@ -714,6 +733,32 @@ function sleep(ms: number): Promise<void> {
 }
 
 async function fetchRemoteSkills(q: string, limit: number, offset: number): Promise<RemoteSkillsResponse> {
+    const [claudePluginsResult, githubResult] = await Promise.allSettled([
+        fetchFromClaudePlugins(q, limit, offset),
+        fetchFromGitHub(q, limit, offset)
+    ]);
+
+    const skills: RemoteSkill[] = [];
+    
+    if (claudePluginsResult.status === 'fulfilled') {
+        skills.push(...claudePluginsResult.value.skills);
+    }
+    
+    if (githubResult.status === 'fulfilled') {
+        skills.push(...githubResult.value.skills);
+    }
+
+    const uniqueSkills = Array.from(new Map(skills.map(s => [s.sourceUrl, s])).values());
+    
+    return {
+        skills: uniqueSkills.slice(0, limit),
+        total: uniqueSkills.length,
+        limit,
+        offset
+    };
+}
+
+async function fetchFromClaudePlugins(q: string, limit: number, offset: number): Promise<RemoteSkillsResponse> {
     const url = new URL('https://claude-plugins.dev/api/skills');
     const trimmed = q.trim();
     if (trimmed) {
@@ -735,11 +780,73 @@ async function fetchRemoteSkills(q: string, limit: number, offset: number): Prom
             if (!parsed || !Array.isArray(parsed.skills)) {
                 throw new Error('Invalid response');
             }
-            return parsed;
+            return {
+                ...parsed,
+                skills: parsed.skills.map(s => ({ ...s, marketplace: 'claude-plugins' as const }))
+            };
         } catch (e) {
             lastError = e;
             if (attempt < 3) {
-                console.debug(`Remote search retry ${attempt}/2: ${e}`);
+                console.debug(`Claude Plugins search retry ${attempt}/2: ${e}`);
+                await sleep(attempt === 1 ? 200 : 500);
+                continue;
+            }
+        }
+    }
+
+    throw lastError instanceof Error ? lastError : new Error(String(lastError));
+}
+
+async function fetchFromGitHub(q: string, limit: number, offset: number): Promise<RemoteSkillsResponse> {
+    const trimmed = q.trim();
+    const query = trimmed 
+        ? `${trimmed}+topic:agent-skills+OR+${trimmed}+in:name+description`
+        : 'topic:agent-skills';
+    
+    const url = new URL('https://api.github.com/search/repositories');
+    url.searchParams.set('q', query);
+    url.searchParams.set('sort', 'stars');
+    url.searchParams.set('order', 'desc');
+    url.searchParams.set('per_page', String(limit));
+    url.searchParams.set('page', String(Math.floor(offset / limit) + 1));
+
+    const headers = {
+        Accept: 'application/vnd.github.v3+json',
+        'User-Agent': 'skills-IA-manager/1.0'
+    };
+
+    let lastError: unknown;
+    for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+            const buf = await downloadUrlToBuffer(url.toString(), headers);
+            const parsed = JSON.parse(buf.toString('utf8')) as GitHubSearchResponse;
+            
+            if (!parsed || !Array.isArray(parsed.items)) {
+                throw new Error('Invalid GitHub response');
+            }
+
+            const skills: RemoteSkill[] = parsed.items.map((item, idx) => ({
+                id: `gh-${item.full_name}`,
+                name: item.full_name.split('/')[1] || item.full_name,
+                namespace: item.full_name.split('/')[0],
+                sourceUrl: item.html_url,
+                description: item.description || '',
+                author: item.owner.login,
+                installs: 0,
+                stars: item.stargazers_count,
+                marketplace: 'github' as const
+            }));
+
+            return {
+                skills,
+                total: parsed.total_count,
+                limit,
+                offset
+            };
+        } catch (e) {
+            lastError = e;
+            if (attempt < 3) {
+                console.debug(`GitHub search retry ${attempt}/2: ${e}`);
                 await sleep(attempt === 1 ? 200 : 500);
                 continue;
             }

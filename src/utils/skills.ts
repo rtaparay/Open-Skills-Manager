@@ -37,6 +37,12 @@ export function getSkillDirectories(workspaceRoot: string): SkillDirectory[] {
 
     const globalDirs: SkillDirectory[] = [
         {
+            path: path.join(os.homedir(), '.agents', 'skills'),
+            displayName: '~/.agents/skills',
+            isProject: false,
+            icon: 'cloud',
+        },
+        {
             path: path.join(os.homedir(), '.claude', 'skills'),
             displayName: '~/.claude/skills',
             isProject: false,
