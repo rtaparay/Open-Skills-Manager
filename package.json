@@ -1,12 +1,12 @@
 {
-    "name": "skills-IA-manager",
-    "displayName": "Skills IA Manager",
+    "name": "Open-Skills-Manager",
+    "displayName": "Open Skills Manager",
     "description": "Manage, install, and sync Agent Skills (Claude Code compatible skills) from VSCode.",
-    "version": "0.6.0",
+    "version": "0.1.0",
     "publisher": "rtaparay",
     "repository": {
         "type": "git",
-        "url": "https://github.com/lasoons/AgentSkillsManager"
+        "url": "https://github.com/rtaparay/Open-Skills-Manager"
     },
     "license": "MIT",
     "icon": "resources/skills-logo.png",
@@ -20,7 +20,7 @@
     "main": "./out/extension.js",
     "contributes": {
         "configuration": {
-            "title": "Skills IA Manager",
+            "title": "Open Skills Manager",
             "properties": {
                 "agentskills.repositories": {
                     "type": "array",
@@ -129,7 +129,7 @@
             "activitybar": [
                 {
                     "id": "agentskills-explorer",
-                    "title": "Skills IA Manager",
+                    "title": "Open Skills Manager",
                     "icon": "resources/skills-icon.svg"
                 }
             ]

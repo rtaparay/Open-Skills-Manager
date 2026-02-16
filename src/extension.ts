@@ -667,7 +667,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     // Show the view on first load or update to help user find the extension
-    const extensionId = 'rtaparay.skills-IA-manager';
+    const extensionId = "rtaparay.Open-Skills-Manager";
     const extension = vscode.extensions.getExtension(extensionId);
     const currentVersion = extension?.packageJSON.version;
     const lastVersion = context.globalState.get<string>('agentskills.lastShownVersion');
@@ -811,8 +811,8 @@ async function fetchFromGitHub(q: string, limit: number, offset: number): Promis
     url.searchParams.set('page', String(Math.floor(offset / limit) + 1));
 
     const headers = {
-        Accept: 'application/vnd.github.v3+json',
-        'User-Agent': 'skills-IA-manager/1.0'
+      Accept: "application/vnd.github.v3+json",
+      "User-Agent": "Open-Skills-Manager/1.0",
     };
 
     let lastError: unknown;

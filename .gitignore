@@ -6,3 +6,5 @@ node_modules
 .trae/*
 .windsurf/*
 .claude/
+AGENTS.md
+Open-Skills-Manager-*.vsix

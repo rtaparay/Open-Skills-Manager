@@ -2,7 +2,7 @@
 
 AgentSkills multi-IDE management extension: browse and install skill repositories for Antigravity, CodeBuddy, Cursor, Qoder, Trae, Windsurf (and VS Code), and search a cloud catalog (~58K skills) from https://claude-plugins.dev/.
 
-![image](https://raw.githubusercontent.com/lasoons/AgentSkillsManager/refs/heads/main/resources/image.png)
+![image](https://raw.githubusercontent.com/rtaparay/Open-Skills-Manager/refs/heads/main/resources/image.png)
 
 ## Features
 
@@ -55,7 +55,7 @@ npm install
 
 npx vsce package
 
-antigravity --install-extension  skills-IA-manager-0.6.0.vsix
+antigravity --install-extension  Open-Skills-Manager-0.6.0.vsix
 
 ## License
 

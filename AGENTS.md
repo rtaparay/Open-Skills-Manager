@@ -1,4 +1,4 @@
-# AGENTS.md - Skills IA Manager
+# AGENTS.md - Open Skills Manager
 
 Coding guidelines for AI agents working on this VSCode extension.
 
