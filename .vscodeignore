@@ -1,0 +1,19 @@
+.vscode
+.vscode-test
+node_modules
+src/
+*.ts
+!*.d.ts
+tsconfig.json
+*.map
+.gitignore
+# Avoid ignoring essential markdown files
+!README.md
+!CHANGELOG.md
+!**/SKILL.md
+esbuild.js
+resources/image.png
+resources/skills-icon.png
+.trae
+.cursor
+.agent

@@ -1,0 +1,252 @@
+{
+    "name": "skills-IA-manager",
+    "displayName": "Skills IA Manager",
+    "description": "Manage, install, and sync Agent Skills (Claude Code compatible skills) from VSCode.",
+    "version": "0.6.0",
+    "publisher": "rtaparay",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lasoons/AgentSkillsManager"
+    },
+    "license": "MIT",
+    "icon": "resources/skills-logo.png",
+    "engines": {
+        "vscode": "^1.96.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [],
+    "main": "./out/extension.js",
+    "contributes": {
+        "configuration": {
+            "title": "Skills IA Manager",
+            "properties": {
+                "agentskills.repositories": {
+                    "type": "array",
+                    "default": [],
+                    "description": "List of Git repositories containing skills.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "branch": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "commands": [
+            {
+                "command": "agentskills.addRepo",
+                "title": "Add Skill Repository",
+                "icon": "$(add)"
+            },
+            {
+                "command": "agentskills.search",
+                "title": "Search Skills",
+                "icon": "$(search)"
+            },
+            {
+                "command": "agentskills.clearSearch",
+                "title": "Clear Filter",
+                "icon": "$(clear-all)"
+            },
+            {
+                "command": "agentskills.refresh",
+                "title": "Refresh Skills",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "agentskills.selectAllInRepo",
+                "title": "Select All (Repo)",
+                "icon": "$(checklist)"
+            },
+            {
+                "command": "agentskills.clearInRepo",
+                "title": "Clear (Repo)",
+                "icon": "$(clear-all)"
+            },
+            {
+                "command": "agentskills.removeRepo",
+                "title": "Remove Repository",
+                "icon": "$(trash)"
+            },
+            {
+                "command": "agentskills.installSelected",
+                "title": "Install Selected Skills",
+                "icon": "$(cloud-download)"
+            },
+            {
+                "command": "agentskills.deleteSelected",
+                "title": "Delete Selected Skills",
+                "icon": "$(trash)"
+            },
+            {
+                "command": "agentskills.switchBranch",
+                "title": "Switch Branch",
+                "icon": "$(git-branch)"
+            },
+            {
+                "command": "agentskills.pullRepo",
+                "title": "Pull Latest",
+                "icon": "$(repo-sync)"
+            },
+            {
+                "command": "agentskills.deleteLocalSkill",
+                "title": "Delete Skill",
+                "icon": "$(trash)"
+            },
+            {
+                "command": "agentskills.openLocalSkill",
+                "title": "Open SKILL.md",
+                "icon": "$(go-to-file)"
+            },
+            {
+                "command": "agentskills.installSkill",
+                "title": "Install Skill",
+                "icon": "$(cloud-download)"
+            },
+            {
+                "command": "agentskills.deleteSkill",
+                "title": "Delete Skill",
+                "icon": "$(trash)"
+            },
+            {
+                "command": "agentskills.installPersonalSkill",
+                "title": "Install Skill",
+                "icon": "$(cloud-download)"
+            }
+        ],
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "agentskills-explorer",
+                    "title": "Skills IA Manager",
+                    "icon": "resources/skills-icon.svg"
+                }
+            ]
+        },
+        "views": {
+            "agentskills-explorer": [
+                {
+                    "id": "agentskills-skills",
+                    "name": "Skills"
+                }
+            ]
+        },
+        "menus": {
+            "view/title": [
+                {
+                    "command": "agentskills.addRepo",
+                    "when": "view == agentskills-skills",
+                    "group": "navigation@1"
+                },
+                {
+                    "command": "agentskills.installSelected",
+                    "when": "view == agentskills-skills",
+                    "group": "navigation@2"
+                },
+                {
+                    "command": "agentskills.deleteSelected",
+                    "when": "view == agentskills-skills",
+                    "group": "navigation@3"
+                },
+                {
+                    "command": "agentskills.search",
+                    "when": "view == agentskills-skills",
+                    "group": "navigation@4"
+                },
+                {
+                    "command": "agentskills.clearSearch",
+                    "when": "view == agentskills-skills && agentskills.hasFilter",
+                    "group": "navigation@4.1"
+                },
+                {
+                    "command": "agentskills.refresh",
+                    "when": "view == agentskills-skills",
+                    "group": "navigation@5"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "agentskills.pullRepo",
+                    "when": "viewItem == skillRepo",
+                    "group": "inline"
+                },
+                {
+                    "command": "agentskills.selectAllInRepo",
+                    "when": "viewItem == skillRepo",
+                    "group": "navigation@1"
+                },
+                {
+                    "command": "agentskills.clearInRepo",
+                    "when": "viewItem == skillRepo",
+                    "group": "navigation@2"
+                },
+                {
+                    "command": "agentskills.switchBranch",
+                    "when": "viewItem == skillRepo",
+                    "group": "inline"
+                },
+                {
+                    "command": "agentskills.removeRepo",
+                    "when": "viewItem == skillRepo",
+                    "group": "inline"
+                },
+                {
+                    "command": "agentskills.openLocalSkill",
+                    "when": "viewItem == localSkill",
+                    "group": "inline"
+                },
+                {
+                    "command": "agentskills.deleteLocalSkill",
+                    "when": "viewItem == localSkill",
+                    "group": "inline"
+                },
+                {
+                    "command": "agentskills.installSkill",
+                    "when": "viewItem == skill",
+                    "group": "inline"
+                },
+                {
+                    "command": "agentskills.deleteSkill",
+                    "when": "viewItem == skillInstalled",
+                    "group": "inline"
+                },
+                {
+                    "command": "agentskills.installPersonalSkill",
+                    "when": "viewItem == personalSkill",
+                    "group": "inline"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run package",
+        "compile": "npm run check-types && node esbuild.js",
+        "watch": "npm-run-all -p watch:*",
+        "watch:esbuild": "node esbuild.js --watch",
+        "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+        "package": "npm run check-types && node esbuild.js --production",
+        "check-types": "tsc --noEmit"
+    },
+    "dependencies": {
+        "adm-zip": "^0.5.12"
+    },
+    "devDependencies": {
+        "@types/adm-zip": "^0.5.7",
+        "@types/node": "^20.0.0",
+        "@types/vscode": "^1.96.0",
+        "esbuild": "^0.24.0",
+        "npm-run-all": "^4.1.5",
+        "typescript": "^5.0.0"
+    }
+}
