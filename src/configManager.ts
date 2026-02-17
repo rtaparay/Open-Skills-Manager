@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { SkillRepo } from './types';
 import { GitService } from './services/git';
+import { url } from "inspector";
 
 // Preset repositories that are always included
 const PRESET_REPOS: SkillRepo[] = [
@@ -15,23 +16,38 @@ const PRESET_REPOS: SkillRepo[] = [
     isPreset: true,
   },
   {
-    url: "https://github.com/skillcreatorai/Ai-Agent-Skills.git",
-    name: "skillcreatorai/Ai-Agent-Skills",
-    isPreset: true,
-  },
-  {
-    url: "https://github.com/obra/superpowers.git",
-    name: "obra/superpowers",
-    isPreset: true,
-  },
-  {
     url: "https://github.com/ComposioHQ/awesome-claude-skills.git",
-    name: "ComposioHQ/awesome-claude-skills",
+    name: "claude/skills",
     isPreset: true,
   },
   {
     url: "https://github.com/vercel-labs/agent-skills.git",
-    name: "vercel-labs/agent-skills",
+    name: "vercel/skills",
+    isPreset: true,
+  },
+  {
+    url: "https://github.com/skillcreatorai/Ai-Agent-Skills.git",
+    name: "creatorai/skills",
+    isPreset: true,
+  },
+  {
+    url: "https://github.com/obra/superpowers.git",
+    name: "superpowers/skills",
+    isPreset: true,
+  },
+  {
+    url: "https://github.com/zxkane/aws-skills.git",
+    name: "aws/skills",
+    isPreset: true,
+  },
+  {
+    url: "https://github.com/huggingface/skills.git",
+    name: "huggingface/skills",
+    isPreset: true,
+  },
+  {
+    url: "https://github.com/ameyalambat128/swiftui-skills.git",
+    name: "swiftui/skills",
     isPreset: true,
   },
 ];

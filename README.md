@@ -3,7 +3,7 @@
 
 Explore, install, and manage procedural skill repositories across VS Code and its most popular AI-powered forks. Search a massive cloud catalog of **~58,000+ skills** (powered by [claude-plugins.dev](https://claude-plugins.dev/)) and equip your AI agents with real procedural knowledge with a single command.
 
-![Open Skills Manager Preview](https://raw.githubusercontent.com/rtaparay/Open-Skills-Manager/refs/heads/main/resources/image.png)
+![Open Skills Manager Preview](https://raw.githubusercontent.com/rtaparay/Open-Skills-Manager/refs/heads/main/resources/demo_explorer.png)
 
 ---
 
@@ -42,7 +42,6 @@ Skills can be installed automatically to any of these supported VS Code-based en
 | **Windsurf** | `windsurf` | `.windsurf/skills/` | `~/.codeium/windsurf/skills/` |
 
 ---
-
 ## 📚 Skill Collections
 
 Preset repositories bundled by default to get you started immediately:
@@ -51,9 +50,13 @@ Preset repositories bundled by default to get you started immediately:
 |------------|-------------|
 | [anthropics/skills](https://github.com/anthropics/skills) | Official Anthropic skills collection |
 | [openai/skills](https://github.com/openai/skills) | Official OpenAI skills catalog |
-| [skillcreatorai/Ai-Agent-Skills](https://github.com/skillcreatorai/Ai-Agent-Skills) | Community skills collection |
-| [obra/superpowers](https://github.com/obra/superpowers) | Superpowers skill collection |
-| [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) | Curated awesome-claude-skills collection |
+| [claude/skills](https://github.com/ComposioHQ/awesome-claude-skills) | Curated awesome-claude-skills collection |
+| [vercel/skills](https://github.com/vercel-labs/agent-skills) | Official Vercel AI capabilities and skills |
+| [creatorai/skills](https://github.com/skillcreatorai/Ai-Agent-Skills) | Community skills collection |
+| [superpowers/skills](https://github.com/obra/superpowers) | Superpowers skill collection |
+| [aws-skills](https://github.com/zxkane/aws-skills) | AWS skills collection |
+| [huggingface/skills](https://github.com/huggingface/skills) | Hugging Face skills collection |
+| [swiftui-skills](https://github.com/ameyalambat128/swiftui-skills) | SwiftUI skills collection |
 
 For more repositories, check out the [awesome-agent-skills](https://github.com/heilcheng/awesome-agent-skills) list.
 
