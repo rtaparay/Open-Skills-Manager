@@ -1,7 +1,7 @@
 # 🌐 Open Skills Manager
 > **The Open Agent Skills Ecosystem**
 
-Explore, install, and manage procedural skill repositories across multiple IDEs. Search a massive cloud catalog of **~58,000+ skills** (powered by [claude-plugins.dev](https://claude-plugins.dev/)) and equip your AI agents with real procedural knowledge with a single command.
+Explore, install, and manage procedural skill repositories across VS Code and its most popular AI-powered forks. Search a massive cloud catalog of **~58,000+ skills** (powered by [claude-plugins.dev](https://claude-plugins.dev/)) and equip your AI agents with real procedural knowledge with a single command.
 
 ![Open Skills Manager Preview](https://raw.githubusercontent.com/rtaparay/Open-Skills-Manager/refs/heads/main/resources/image.png)
 
@@ -12,7 +12,7 @@ Explore, install, and manage procedural skill repositories across multiple IDEs.
 * 📦 **Repository Management**: Add, remove, and switch branches of skill repositories effortlessly.
 * ⚡ **One-Click Installation**: Install skills directly into the active IDE's skills directory.
 * ☁️ **Cloud Skills Search (~58K)**: Search the cloud catalog and install with one click or simply press Enter.
-* 🔄 **Multi-IDE Support**: Works natively with VS Code, Cursor, Trae, Antigravity, Qoder, Windsurf, and CodeBuddy.
+* 🔄 **VS Code Ecosystem Support**: Works natively with VS Code and major AI-first forks like Cursor, Windsurf, Trae, and Antigravity.
 * 📂 **Active Skills Directory**: The local skills group clearly displays which workspace directory is currently active.
 
 ---
@@ -24,6 +24,22 @@ Explore, install, and manage procedural skill repositories across multiple IDEs.
 3. Expand the repository to browse available skills.
 4. Check the skills you want, then click **Install**.
 5. Click the search icon to search cloud skills, then press **Enter** (or click **Install**) to download and deploy.
+
+---
+
+## 🤖 Supported Editors (VS Code Based)
+
+Skills can be installed automatically to any of these supported VS Code-based environments. Open Skills Manager detects your active IDE or allows you to specify it:
+
+| Editor | `--editor` | Project Path | Global Path |
+|-------|-----------|--------------|-------------|
+| **VS Code** | `vscode` | `.github/skills/` | `~/.vscode/skills/` |
+| **Antigravity** | `antigravity` | `.agent/skills/` | `~/.gemini/antigravity/skills/` |
+| **CodeBuddy** | `codebuddy` | `.codebuddy/skills/` | `~/.codebuddy/skills/` |
+| **Cursor** | `cursor` | `.cursor/skills/` | `~/.cursor/skills/` |
+| **Qoder** | `qoder` | `.qoder/skills/` | `~/.qoder/skills/` |
+| **Trae** | `trae` | `.trae/skills/` | `~/.trae/skills/` |
+| **Windsurf** | `windsurf` | `.windsurf/skills/` | `~/.codeium/windsurf/skills/` |
 
 ---
 
@@ -40,22 +56,6 @@ Preset repositories bundled by default to get you started immediately:
 | [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) | Curated awesome-claude-skills collection |
 
 For more repositories, check out the [awesome-agent-skills](https://github.com/heilcheng/awesome-agent-skills) list.
-
----
-
-## ⚙️ Configuration
-
-Skills are automatically installed to the active skills directory in your workspace based on your current IDE:
-
-* **VS Code**: `.github/skills`
-* **Cursor**: `.cursor/skills`
-* **Trae**: `.trae/skills`
-* **Antigravity**: `.agent/skills`
-* **Qoder**: `.qoder/skills`
-* **Windsurf**: `.windsurf/skills`
-* **CodeBuddy**: `.codebuddy/skills`
-
-> **Note:** The extension also scans for skills in hidden directories inside repositories (e.g., `.curated`, `.experimental`).
 
 ---
 
