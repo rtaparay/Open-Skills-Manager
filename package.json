@@ -1,7 +1,7 @@
 {
     "name": "Open-Skills-Manager",
     "displayName": "Open Skills Manager",
-    "description": "Manage, install, and sync Agent Skills (Claude Code compatible skills) from VSCode.",
+    "description": "Manage, install, and sync Agent Skills extension from Claude / Antigravity / Cursor / VSCode.",
     "version": "0.1.0",
     "publisher": "rtaparay",
     "repository": {
