@@ -73,5 +73,26 @@ npm install
 # 3. Package the extension
 npx vsce package
 
-# 4. Install the generated .vsix file (Example using Antigravity)
-antigravity --install-extension Open-Skills-Manager-0.1.0.vsix
+# 4. Install the generated .vsix file
+
+You can install the resulting file in VS Code by running:
+
+# VSCode
+code --install-extension Open-Skills-Manager-0.1.0.vsix
+
+# Antigravity
+antigravity --install-extension  Open-Skills-Manager-0.1.0.vsix
+
+# Cursor
+cursor --install-extension  Open-Skills-Manager-0.1.0.vsix
+
+# Kiro
+kiro --install-extension  Open-Skills-Manager-0.1.0.vsix
+
+# Trae
+trae --install-extension  Open-Skills-Manager-0.1.0.vsix
+
+# Windsurf
+windsurf --install-extension  Open-Skills-Manager-0.1.0.vsix
+
+```
