@@ -140,38 +140,44 @@
                     "id": "agentskills-skills",
                     "name": "Skills"
                 }
+            ],
+            "explorer": [
+                {
+                    "id": "agentskills-skills-explorer",
+                    "name": "Skills"
+                }
             ]
         },
         "menus": {
             "view/title": [
                 {
                     "command": "agentskills.addRepo",
-                    "when": "view == agentskills-skills",
+                    "when": "view == agentskills-skills || view == agentskills-skills-explorer",
                     "group": "navigation@1"
                 },
                 {
                     "command": "agentskills.installSelected",
-                    "when": "view == agentskills-skills",
+                    "when": "view == agentskills-skills || view == agentskills-skills-explorer",
                     "group": "navigation@2"
                 },
                 {
                     "command": "agentskills.deleteSelected",
-                    "when": "view == agentskills-skills",
+                    "when": "view == agentskills-skills || view == agentskills-skills-explorer",
                     "group": "navigation@3"
                 },
                 {
                     "command": "agentskills.search",
-                    "when": "view == agentskills-skills",
+                    "when": "view == agentskills-skills || view == agentskills-skills-explorer",
                     "group": "navigation@4"
                 },
                 {
                     "command": "agentskills.clearSearch",
-                    "when": "view == agentskills-skills && agentskills.hasFilter",
+                    "when": "(view == agentskills-skills || view == agentskills-skills-explorer) && agentskills.hasFilter",
                     "group": "navigation@4.1"
                 },
                 {
                     "command": "agentskills.refresh",
-                    "when": "view == agentskills-skills",
+                    "when": "view == agentskills-skills || view == agentskills-skills-explorer",
                     "group": "navigation@5"
                 }
             ],

@@ -155,13 +155,21 @@ export function activate(context: vscode.ExtensionContext) {
         dragAndDropController
     });
 
-    context.subscriptions.push(skillsTreeView);
+    const skillsTreeViewExplorer = vscode.window.createTreeView('agentskills-skills-explorer', {
+        treeDataProvider: skillsProvider,
+        canSelectMany: true,
+        dragAndDropController
+    });
+
+    context.subscriptions.push(skillsTreeView, skillsTreeViewExplorer);
     outputChannel.appendLine('[INFO] Skills TreeView created');
+    outputChannel.appendLine('[INFO] Skills TreeView (Explorer) created');
     outputChannel.appendLine('[INFO] Starting initial refresh/indexing');
     skillsProvider.refresh();
 
     const updateSearchUi = (query: string) => {
         skillsTreeView.message = query ? `Filter: ${query}` : undefined;
+        skillsTreeViewExplorer.message = query ? `Filter: ${query}` : undefined;
         void vscode.commands.executeCommand('setContext', 'agentskills.hasFilter', Boolean(query));
     };
 
@@ -170,7 +178,14 @@ export function activate(context: vscode.ExtensionContext) {
 
     skillsTreeView.onDidChangeCheckboxState(e => {
         e.items.forEach(([item, state]) => {
-            // Only handle repo skills (have repoUrl, not local skills)
+            if ('repoUrl' in item) {
+                skillsProvider.setChecked(item as Skill, state === vscode.TreeItemCheckboxState.Checked);
+            }
+        });
+    });
+
+    skillsTreeViewExplorer.onDidChangeCheckboxState(e => {
+        e.items.forEach(([item, state]) => {
             if ('repoUrl' in item) {
                 skillsProvider.setChecked(item as Skill, state === vscode.TreeItemCheckboxState.Checked);
             }
