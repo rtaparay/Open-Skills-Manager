@@ -1,4 +1,4 @@
-# 🌐 Open Skills Manager
+# Open Skills Manager
 > **The Open Agent Skills Ecosystem**
 
 Explore, install, and manage procedural skill repositories across VS Code and its most popular AI-powered forks. Search a massive cloud catalog of **~58,000+ skills** (powered by [claude-plugins.dev](https://claude-plugins.dev/)) and equip your AI agents with real procedural knowledge with a single command.
@@ -31,7 +31,7 @@ Explore, install, and manage procedural skill repositories across VS Code and it
 
 Skills can be installed automatically to any of these supported VS Code-based environments. Open Skills Manager detects your active IDE or allows you to specify it:
 
-| Editor | `--editor` | Project Path | Global Path |
+| Name | `editor` | Project Path | Global Path |
 |-------|-----------|--------------|-------------|
 | **VS Code** | `vscode` | `.github/skills/` | `~/.vscode/skills/` |
 | **Antigravity** | `antigravity` | `.agent/skills/` | `~/.gemini/antigravity/skills/` |
@@ -61,41 +61,10 @@ Preset repositories bundled by default to get you started immediately:
 For more repositories, check out the [awesome-agent-skills](https://github.com/heilcheng/awesome-agent-skills) list.
 
 ---
+## Install VSCode Extension or Base Editor
 
-## 🛠️ Installation & Build
+[Instalacion desde VSX](https://open-vsx.org/extension/rtaparay/Open-Skills-Manager)
 
-To build and install the extension locally, run the following commands in your terminal:
+[Instalacion desde Marketplace](https://marketplace.visualstudio.com/items?itemName=rtaparay.open-skills-manager)
 
-```bash
-# 1. Ensure you have the correct Node version
-nvm install
-
-# 2. Install dependencies
-npm install
-
-# 3. Package the extension
-npx vsce package
-
-# 4. Install the generated .vsix file
-
-You can install the resulting file in VS Code by running:
-
-# VSCode
-code --install-extension Open-Skills-Manager-0.1.0.vsix
-
-# Antigravity
-antigravity --install-extension  Open-Skills-Manager-0.1.0.vsix
-
-# Cursor
-cursor --install-extension  Open-Skills-Manager-0.1.0.vsix
-
-# Kiro
-kiro --install-extension  Open-Skills-Manager-0.1.0.vsix
-
-# Trae
-trae --install-extension  Open-Skills-Manager-0.1.0.vsix
-
-# Windsurf
-windsurf --install-extension  Open-Skills-Manager-0.1.0.vsix
-
-```
+---
